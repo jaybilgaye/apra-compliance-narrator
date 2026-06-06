@@ -82,6 +82,6 @@ A worked example is in [`samples/`](samples/) — real Prowler findings (`sample
 
 ## Related
 
-- 📖 Blog: [Using Bedrock to turn AWS security findings into APRA-paragraph narrative](https://aiopsone.com/blog/bedrock-apra-narrative) *(link goes live with the post)*
+- 📖 Blog: [Turning AWS Security Findings into APRA-Paragraph Narrative with Bedrock](https://aiopsone.com/blog/bedrock-apra-narrative)
 - 🧰 Feeds from: [`cps234-aws-config-pack`](https://github.com/jaybilgaye/cps234-aws-config-pack) + Prowler APRA frameworks
 - 🌐 More at **[aiopsone.com](https://aiopsone.com)** — AI-powered AWS Security & Cloud Operations for APRA-regulated Australia.
