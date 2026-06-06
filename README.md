@@ -36,30 +36,47 @@ This tool closes that gap. It's the artifact that makes the CISO conversation re
 
 ---
 
-## Planned usage
+## Usage
+
+Generate the Prowler input, then narrate it:
 
 ```bash
-# Generate an APRA CPS 234 narrative report from Prowler output
-narrator generate \
-  --input prowler-findings.json \
-  --framework cps234 \
-  --output apra-cps234-report.pdf
+# 1. Produce a CPS 234 compliance report with Prowler (the companion framework)
+prowler aws --compliance apra_cps_234_aws --region ap-southeast-2
+
+# 2a. Narrate it — template engine (offline, no AWS calls, default)
+python narrator.py \
+  --findings output/compliance/<...>_apra_cps_234_aws.csv \
+  --framework apra_cps_234_aws.json \
+  -o apra-report.md
+
+# 2b. Narrate it — Amazon Bedrock (Claude) for polished prose
+python narrator.py \
+  --findings <compliance.csv> --framework apra_cps_234_aws.json \
+  --engine bedrock --model apac.anthropic.claude-sonnet-4-20250514-v1:0 \
+  --region ap-southeast-2 -o apra-report.md
 ```
+
+**Two engines:**
+- `template` — deterministic, offline, builds the narrative from the framework's rationale/remediation. No AWS/LLM dependency. Great for CI and air-gapped review.
+- `bedrock` — sends each control's structured findings to Claude on Amazon Bedrock (Converse API) for board-grade prose. Requires Bedrock model access in the account; falls back to the template per-control if Bedrock is unavailable.
+
+A worked example is in [`samples/`](samples/) — real Prowler findings (`sample-compliance.csv`) → [`sample-apra-report.md`](samples/sample-apra-report.md).
 
 ---
 
 ## Report sections
 
-1. **Executive summary** — posture in board language
-2. **Paragraph-by-paragraph mapping** — each CPS 234 control → status → evidence
+1. **Executive summary** — posture in board language (automated score + manual-control count)
+2. **Control-by-control assessment** — each CPS 234 paragraph → status → narrative
 3. **Evidence cited** — the specific findings backing each claim
-4. **Remediation roadmap** — prioritised, owner-assignable actions
+4. **Remediation roadmap** — prioritised actions
 
 ---
 
 ## Status
 
-🚧 **Flagship — scaffold + README first (Day 0).** Proof-of-concept targeted for the Days 27–30 window; becomes a real demo in the 60-day plan. Currently in private design.
+✅ **Working proof-of-concept.** `narrator.py` runs end-to-end (template + Bedrock engines) and has been validated against a real account's Prowler CPS 234 findings — see `samples/`. Next: PDF rendering and Security Hub / Config (OCSF) ingestion in addition to the Prowler CSV.
 
 ---
 
