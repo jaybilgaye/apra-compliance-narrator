@@ -11,7 +11,7 @@
 
 ## Why this exists
 
-Security tools produce **findings**. Regulators and boards want **narrative evidence** — "demonstrate, in plain language mapped to CPS 234 paragraph 35, that your information assets are encrypted." The translation from raw findings to a board-ready compliance story is manual, slow, and the single biggest time-sink in an APRA review.
+Security tools produce **findings**. Regulators and boards want **narrative evidence** — "demonstrate, in plain language mapped to CPS 234 paragraph 21, that your information assets are encrypted." The translation from raw findings to a board-ready compliance story is manual, slow, and the single biggest time-sink in an APRA review.
 
 This tool closes that gap. It's the artifact that makes the CISO conversation real: **AI + AWS + compliance in one demonstrable piece** — and the seed of the flagship product.
 
